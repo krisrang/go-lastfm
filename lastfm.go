@@ -10,11 +10,10 @@ import (
 )
 
 var (
-	user  string
-	key   string
-	limit = 5
+	user string
+	key  string
 
-	lastfmApiRoot = "http://ws.audioscrobbler.com/2.0"
+	apiRoot = "http://ws.audioscrobbler.com/2.0"
 )
 
 type User struct {
@@ -160,7 +159,7 @@ func GetTracks(limit int) *[]Track {
 //  PRIVATE
 
 func getData(method string, i interface{}) {
-	uri := lastfmApiRoot + "?method=" + method + "&format=json&user=" + user + "&api_key=" + key
+	uri := apiRoot + "?method=" + method + "&format=json&user=" + user + "&api_key=" + key
 	data := getRequest(uri)
 	jsonUnmarshal(data, i)
 }
