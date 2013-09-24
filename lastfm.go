@@ -149,7 +149,7 @@ func GetTracks(limit int) *[]Track {
 	getData("user.getrecenttracks", trackdata)
 	tracks := trackdata.Tracks.Tracks
 
-	if limit > 0 {
+	if len(tracks) > limit && limit > 0 {
 		tracks = tracks[:limit]
 	}
 
