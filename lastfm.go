@@ -21,13 +21,14 @@ type User struct {
 }
 
 type UserInfo struct {
-	Name       string
-	Realname   string
-	URL        string
-	PlayCount  string
-	Country    string
-	Image      []Image
-	Registered Date
+	Name        string
+	Realname    string
+	URL         string
+	PlayCount   string
+	Country     string
+	Image       []Image
+	Registered  Date
+	LovedTracks string
 }
 
 func (t UserInfo) GetImage() string {
@@ -131,6 +132,18 @@ func (d Date) RelativeDate() string {
 	}
 }
 
+type LovedTracksRoot struct {
+	LovedTracks LovedTracks
+}
+
+type LovedTracks struct {
+	Info LovedTracksInfo `json:"@attr"`
+}
+
+type LovedTracksInfo struct {
+	Total string
+}
+
 // PUBLIC
 
 func SetConfig(u, k string) {
@@ -141,6 +154,11 @@ func SetConfig(u, k string) {
 func GetUser() *UserInfo {
 	userdata := &User{}
 	getData("user.getinfo", userdata)
+
+	loved := &LovedTracksRoot{}
+	getData("user.getlovedtracks", loved)
+	userdata.User.LovedTracks = loved.LovedTracks.Info.Total
+
 	return &userdata.User
 }
 
