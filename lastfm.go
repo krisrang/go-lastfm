@@ -85,7 +85,7 @@ type Date struct {
 func (d Date) ParseDate() (time.Time, error) {
 	date, err := time.Parse("2006-01-02 15:04", d.Text)
 	if err != nil {
-		date, err = time.Parse("02 Jan 2006, 15:04", d.Text)
+		date, err = time.Parse("2 Jan 2006, 15:04", d.Text)
 		if err != nil {
 			return time.Time{}, err
 		}
